@@ -128,8 +128,21 @@ func validateAuth(c Config) error {
 	return nil
 }
 
-// ParseDSN reads a turborel URL. It rejects unknown options and never includes
-// the original URL in errors, because it may contain credentials.
+// ParseDSN reads a connection URL of the form turborel://USER:PASSWORD@HOST:PORT.
+// Use net/url.UserPassword to escape reserved characters in credentials. A
+// listener serves one database, so the URL has no database path.
+//
+// Supported query options are:
+//   - auth: scram (default), password, certificate or trust.
+//   - tls: require (default for TCP) or disable. Certificate verification cannot
+//     be disabled independently of TLS.
+//   - socket: a Unix socket path, which selects the unix network.
+//   - connect_timeout: a Go duration such as 5s; zero selects the 30s default.
+//   - read_timeout: a duration for the whole operation; zero disables the limit.
+//   - allow_insecure_scram: a boolean permitting SCRAM over plaintext TCP.
+//
+// Unknown or duplicate options and invalid values return an error. Errors never
+// include the original URL because it may contain credentials.
 func ParseDSN(dsn string) (Config, error) {
 	u, err := url.Parse(dsn)
 	if err != nil {

@@ -1,7 +1,7 @@
 // Package turborel connects database/sql to Turborel's native protocol.
 //
 // Importing the package registers the driver "turborel". This alpha client
-// targets the server commit recorded in VERSIONING.md.
+// targets the server commit recorded in CONTRIBUTING.md.
 //
 // # Connections
 //
@@ -59,7 +59,9 @@
 //
 // # Transactions and sessions
 //
-// database/sql owns the pool. The driver uses autocommit outside sql.Tx. BeginTx
+// database/sql owns the pool. Configure it with sql.DB.SetMaxOpenConns,
+// SetMaxIdleConns and SetConnMaxLifetime. The driver uses autocommit outside sql.Tx.
+// BeginTx
 // supports the default isolation level, READ UNCOMMITTED, READ COMMITTED,
 // REPEATABLE READ and SERIALIZABLE. READ UNCOMMITTED requires ReadOnly; unsupported
 // isolation levels return ErrUnsupported. Commit or roll back every transaction
