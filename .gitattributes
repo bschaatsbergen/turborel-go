@@ -1,0 +1,2 @@
+# Keep Go source identical to gofmt output on every platform.
+*.go text eol=lf
