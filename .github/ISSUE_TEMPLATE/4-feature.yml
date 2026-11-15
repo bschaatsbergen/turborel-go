@@ -1,0 +1,38 @@
+name: Feature
+description: Something the Go client should do that it does not.
+labels: [feature]
+body:
+  - type: markdown
+    attributes:
+      value: Check TODO.md first. Identify whether the change also needs server support.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What you need to do, and why the client cannot do it today.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Go API or database/sql behavior
+        - Values or transactions
+        - Authentication or transport
+        - Server or protocol support
+        - Configuration or documentation
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you propose
+      description: How it would work and the interfaces or options it would add.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: What else would solve the problem.

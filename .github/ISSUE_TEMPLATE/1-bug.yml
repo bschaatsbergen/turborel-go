@@ -1,0 +1,41 @@
+name: Bug
+description: A connection fails, a value is wrong, or a transaction behaves incorrectly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Report vulnerabilities privately as SECURITY.md describes. Remove passwords and private keys.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happens
+      description: Put data loss or a wrong result first.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: The smallest Go program, schema, data and statements that show it.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: Include SQLCODE, SQLSTATE and error text.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions and platform
+      description: Driver commit, server commit, Go version, OS and architecture.
+    validations:
+      required: true
