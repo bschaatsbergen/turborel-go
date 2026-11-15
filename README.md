@@ -8,7 +8,7 @@
 </p>
 
 > turborel-go is in alpha. The Go API and Turborel's native protocol may
-> change between builds. See [VERSIONING.md](VERSIONING.md).
+> change between builds.
 
 A Go `database/sql` driver for [Turborel](https://turborel.com/), written
 with the standard library. It connects directly to `turboreld` over TCP
