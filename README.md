@@ -26,7 +26,10 @@ go get github.com/bschaatsbergen/turborel-go
 ## Usage
 
 Set `TURBOREL_DSN` to your server's connection URL, for example
-`turborel://ANN:password@localhost:7422`, and query it with `database/sql`:
+`turborel://ANN:password@localhost:7422`, and query it with `database/sql`.
+
+This example assumes a `users` table with `id` and `name` columns and a
+row for ID `42`.
 
 ```go
 import (
@@ -44,17 +47,21 @@ func query(ctx context.Context) error {
 		return err
 	}
 	defer func() { _ = db.Close() }()
-	var answer int
-	if err := db.QueryRowContext(ctx, "VALUES (CAST(? AS INTEGER))", 42).Scan(&answer); err != nil {
+
+	var name string
+	err = db.QueryRowContext(ctx,
+		"SELECT name FROM users WHERE id = ?", 42,
+	).Scan(&name)
+	if err != nil {
 		return err
 	}
-	fmt.Println(answer)
+	fmt.Println(name)
 	return nil
 }
 ```
 
-This prints `42`. TCP connections use TLS encryption and password
-authentication by default. See [Config and ParseDSN](config.go) for
+TCP connections use TLS encryption and password authentication by default.
+See [Config and ParseDSN](config.go) for
 connection options, or [examples/query](examples/query/main.go) for a
 complete program.
 
@@ -66,7 +73,7 @@ named parameters are not supported. For repeated queries, prepare a
 statement with `PrepareContext` and close it when finished.
 
 Query results use the following Go values. `Scan` converts them into your
-destination type when supported, as the example does for its integer.
+destination type when supported.
 
 | SQL value | Result value | Parameter |
 |---|---|---|
